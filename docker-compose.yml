@@ -1,0 +1,31 @@
+kibana:
+
+  build: ./kibana
+  restart: always
+  hostname: kibana
+  ports:
+    - "5601:5601"
+  links:
+    - "elasticsearch:elasticsearch"
+
+elasticsearch:
+
+  build: ./elasticsearch
+  restart: always
+  hostname: eleasticsearch
+  ports:
+    - "9200:9200"
+    - "9300:9300"
+  volumes:
+    - "/data:/data"
+
+logstash:
+
+  build: ./logstash
+  restart: always
+  hostname: logstash
+  ports:
+    - "4545:4545"
+    - "4546:4546"
+  volumes:
+    - "/data:/data"
