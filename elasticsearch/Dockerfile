@@ -1,5 +1,5 @@
 # Pull base image.
-FROM dockerfile/java:oracle-java7
+FROM dockerfile/java:oracle-java8
 
 # Set install version
 ENV ES_PKG_NAME elasticsearch-1.5.0
@@ -13,13 +13,11 @@ RUN \
  rm -f $ES_PKG_NAME.tar.gz && \
  mv /$ES_PKG_NAME /elasticsearch
 
-# Define mountable directories
-VOLUME ["/data"]
+# Plugins
+RUN /elasticsearch/bin/plugin -i elasticsearch/license/latest
+RUN /elasticsearch/bin/plugin -i elasticsearch/shield/latest
 
-# Define working directory
-WORKDIR /data
-
-# Custom ES config
+# Config
 ADD elasticsearch.yml /elasticsearch/config/elasticsearch.yml
 
 # Expose ports

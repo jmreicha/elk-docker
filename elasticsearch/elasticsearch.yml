@@ -1,7 +1,6 @@
 http.cors.allow-origin: "/.*/"
 http.cors.enabled: true
 cluster.name: elasticsearch
-node.name: "logstash.domain.com"
 path:
  data: /data/index
  logs: /data/log
