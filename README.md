@@ -14,7 +14,7 @@ For example, you can modify the default amount of heap memory used for the Logst
 
 Modify the generate_certs.sh script to be executable and then generate self signed certs by running `chmod +x generate_certs.sh` from the command line, then run it to generate the certificates.
 
-The certs should be placed in to the correct location within this repo for the Docker images to build.  The script builds the certs with a default expiration value of 10 years.
+The certs should be placed in to the correct location within this repo for the Docker images to build.  The script builds the certs with a default expiration value of 10 years.  You can test out the certificate with the openssl checker by running something like `openssl x509 -noout -text  -in logstash/logstash-forwarder.crt` to look at the domain and expiration on the cert.
 
 ### Create /data directory to place data
 
