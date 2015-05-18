@@ -12,10 +12,10 @@ For example, you can modify the default amount of heap memory used for the Logst
 
 ### Generate certificates for logstash
 
-Modify the generate_certs.sh script to be executable and then generate certs by running `chmod +x generate_certs.sh` from the command line.
+Modify the generate_certs.sh script to be executable and then generate self signed certs by running `chmod +x generate_certs.sh` from the command line, then run it to generate the certificates.
 
-The certs should be placed in to the correct location within this repo for the Docker images to build correctly.
+The certs should be placed in to the correct location within this repo for the Docker images to build.  The script builds the certs with a default expiration value of 10 years.
 
 ### Create /data directory to place data
 
-For this configuration to work correctly you will either need to create the directories by hand or run the setup_dirs script to create the volume mounts that Docker containers use to write data to persistent storage.
+For this configuration to work correctly you will either need to create the directories by hand or run the setup_dirs script to create the directores for volume mounts that Docker containers will use to write data to persistent storage.
