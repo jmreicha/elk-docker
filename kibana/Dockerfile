@@ -14,7 +14,9 @@ RUN wget https://download.elasticsearch.org/kibana/kibana/kibana-4.0.0-linux-x64
 
 # Configs
 COPY kibana.yml /opt/kibana/config/kibana.yml
+COPY entrypoint.sh /opt/entrypoint.sh
 
 EXPOSE 5601
 
-CMD /opt/kibana/bin/kibana
+#CMD /opt/kibana/bin/kibana
+ENTRYPOINT ["/opt/entrypoint.sh"]
