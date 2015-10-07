@@ -17,15 +17,16 @@ elasticsearch:
     - "9200:9200"
     - "9300:9300"
   volumes:
-    - "/data:/data"
+    - ./elasticsearch/data:/data/
 
 logstash:
 
   build: ./logstash
   restart: always
   hostname: logstash
+  mem_limit: 4G
   ports:
     - "4545:4545"
     - "4546:4546"
   volumes:
-    - "/data:/data"
+    - ./logstash/data:/data/
