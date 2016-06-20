@@ -29,8 +29,6 @@ services:
         - "12201:12201/udp"
         # UDP port for syslogs
         - "5000:5000/udp"
-        # UDP port for testing
-        - "6969:6969/udp"
         # Default TCP port
         - "5001:5001"
       links:
