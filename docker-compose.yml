@@ -33,8 +33,6 @@ services:
         - "6969:6969/udp"
         # Default TCP port
         - "5001:5001"
-        # Beats port
-        - "5044:5044"
       links:
         - elasticsearch
 
@@ -53,7 +51,6 @@ services:
       ports:
         - "8080:80"
       environment:
-        KOPF_SERVER_NAME: "kopf.abtm.io"
         KOPF_ES_SERVERS: "elasticsearch:9200"
       links:
         - elasticsearch
