@@ -1,32 +1,62 @@
-kibana:
+version: '2'
+services:
+    elasticsearch:
+      image: elasticsearch:5
+      command: elasticsearch
+      environment:
+        # This helps ES out with memory usage
+        - ES_JAVA_OPTS=-Xmx1g -Xms1g
+      volumes:
+        # Persist elasticsearch data to a volume
+        - elasticsearch:/usr/share/elasticsearch/data
+        # Extra ES configuration options
+        - ./es/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      ports:
+        - "9200:9200"
+        - "9300:9300"
 
-  build: ./kibana
-  restart: always
-  hostname: kibana
-  ports:
-    - "5601:5601"
-  links:
-    - "elasticsearch:elasticsearch"
+    logstash:
+      image: logstash:5
+      command: logstash --auto-reload -w 4 -f /etc/logstash/conf.d/logstash.conf
+      environment:
+        # This helps Logstash out if it gets too busy
+        - LS_HEAP_SIZE=2048m
+      volumes:
+        # volume mount the logstash config
+        - ./logstash/logstash.conf:/etc/logstash/conf.d/logstash.conf
+      ports:
+        # GELF port for Docker logs
+        - "12201:12201/udp"
+        # UDP port for syslogs
+        - "5000:5000/udp"
+        # UDP port for testing
+        - "6969:6969/udp"
+        # Default TCP port
+        - "5001:5001"
+        # Beats port
+        - "5044:5044"
+      links:
+        - elasticsearch
 
-elasticsearch:
+    kibana:
+      image: kibana:5
+      environment:
+        # Point Kibana to the elasticsearch container
+        - ELASTICSEARCH_URL=http://elasticsearch:9200
+      ports:
+        - "5601:5601"
+      links:
+        - elasticsearch
 
-  build: ./elasticsearch
-  restart: always
-  hostname: eleasticsearch
-  ports:
-    - "9200:9200"
-    - "9300:9300"
-  volumes:
-    - ./elasticsearch/data:/data/
+    kopf:
+      image: rancher/kopf:v0.4.0
+      ports:
+        - "8080:80"
+      environment:
+        KOPF_SERVER_NAME: "kopf.abtm.io"
+        KOPF_ES_SERVERS: "elasticsearch:9200"
+      links:
+        - elasticsearch
 
-logstash:
-
-  build: ./logstash
-  restart: always
-  hostname: logstash
-  mem_limit: 4G
-  ports:
-    - "4545:4545"
-    - "4546:4546"
-  volumes:
-    - ./logstash/data:/data/
+volumes:
+  elasticsearch:

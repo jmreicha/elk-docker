@@ -1,8 +1,0 @@
-http.cors.allow-origin: "/.*/"
-http.cors.enabled: true
-cluster.name: elasticsearch
-path:
- data: /data/index
- logs: /data/log
- plugins: /data/plugins
- work: /data/work

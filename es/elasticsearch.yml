@@ -1,0 +1,6 @@
+# Network settings
+network.bind_host: 0.0.0.0
+cluster.name: elasticsearch
+node.name: "logstash"
+discovery.zen.minimum_master_nodes: 1
+
