@@ -3,8 +3,8 @@ Run the ELK stack the "Docker" way.
 
 Currently to get this setup working you will need to do the following:
 
- * Install Docker
- * Install docker-compose
+ * [Install Docker](https://docs.docker.com/engine/installation/)
+ * [Install docker-compose](https://docs.docker.com/compose/install/)
 
 Run `docker-compose up` or `docker-compose up -d` from the root of this repo to start up the ELK stack.
 
