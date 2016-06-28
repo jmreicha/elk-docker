@@ -2,7 +2,7 @@ version: '2'
 services:
     elasticsearch:
       image: elasticsearch:5
-      command: elasticsearch
+      command: elasticsearch -E bootstrap.ignore_system_bootstrap_checks=true
       environment:
         # This helps ES out with memory usage
         - ES_JAVA_OPTS=-Xmx1g -Xms1g
